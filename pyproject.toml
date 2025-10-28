@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "ndstrbot"
+version = "0.1.0"
+description = "Telegram bot for Yandex GO car registration"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.0"
+python-dotenv = "^1.0"
+pydantic = "^2.0"
+pydantic-settings = "^2.0"
+aiosqlite = "^0.19"
+sqlmodel = "^0.0.14"
+pillow = "^10.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1"
+pytest = "^7.0"
+pytest-asyncio = "^0.21"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+extend-ignore = [
+    "E501",  # line too long, handled by black
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
