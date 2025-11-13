@@ -3,8 +3,12 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
+# This file is kept for backward compatibility but is no longer used
+# All keyboards have been migrated to inline keyboards
+
+
 def get_main_menu() -> ReplyKeyboardMarkup:
-    """Main menu keyboard."""
+    """Main menu keyboard - DEPRECATED."""
     return ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -20,7 +24,7 @@ def get_main_menu() -> ReplyKeyboardMarkup:
 
 
 def get_yes_no_menu() -> ReplyKeyboardMarkup:
-    """Yes/No keyboard."""
+    """Yes/No keyboard - DEPRECATED."""
     return ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -36,7 +40,7 @@ def get_yes_no_menu() -> ReplyKeyboardMarkup:
 
 
 def get_cancel_menu() -> ReplyKeyboardMarkup:
-    """Cancel keyboard."""
+    """Cancel keyboard - DEPRECATED."""
     return ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -48,7 +52,7 @@ def get_cancel_menu() -> ReplyKeyboardMarkup:
 
 
 def get_back_cancel_menu() -> ReplyKeyboardMarkup:
-    """Back/Cancel keyboard."""
+    """Back/Cancel keyboard - DEPRECATED."""
     return ReplyKeyboardMarkup(
         keyboard=[
             [

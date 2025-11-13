@@ -9,15 +9,11 @@ RUN apt-get update && apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy poetry files
-COPY pyproject.toml poetry.lock* ./
-
-# Install poetry
-RUN pip install poetry
+# Copy bot requirements
+COPY requirements-bot.txt .
 
 # Install dependencies
-RUN poetry config virtualenvs.create false \
-    && poetry install --only=main --no-root
+RUN pip install -r requirements-bot.txt
 
 # Copy application code
 COPY . .
@@ -29,4 +25,4 @@ RUN mkdir -p storage/uploads logs
 EXPOSE 8000
 
 # Run the bot
-CMD ["python", "run.py"]
+CMD ["python", "run.py", "bot"]

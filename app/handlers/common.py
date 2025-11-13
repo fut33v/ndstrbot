@@ -26,4 +26,4 @@ async def invalid_content_type(message: Message, state: FSMContext):
     
     # Only respond with the photo request message if we're in a photo upload state
     if current_state in [str(state) for state in photo_states]:
-        await message.answer("Пожалуйста, пришлите фото. Допустимые форматы: JPEG/PNG.")
+        await message.answer("⚠️ Пожалуйста, пришлите фото. Допустимые форматы: JPEG/PNG.")

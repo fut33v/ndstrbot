@@ -30,6 +30,17 @@ class Admin(SQLModel, table=True):
     added_by: Optional[int] = Field(default=None)  # TG ID of admin who added this admin
 
 
+class Template(SQLModel, table=True):
+    """Template model for car wrapping options."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field()  # Template name
+    description: Optional[str] = None
+    file_id: str = Field()  # Telegram file ID
+    path: str = Field()  # Local file path
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_by: Optional[int] = Field(default=None)  # Admin ID who uploaded
+
+
 class Request(SQLModel, table=True):
     """Request model."""
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -39,12 +50,14 @@ class Request(SQLModel, table=True):
     has_brand: Optional[bool] = None
     year: Optional[int] = None
     has_license: Optional[bool] = None
+    selected_template_id: Optional[int] = Field(default=None, foreign_key="template.id", nullable=True)  # Selected template for re-wrap
     created_at: datetime = Field(default_factory=datetime.utcnow)
     submitted_at: Optional[datetime] = None
     
     # Relationships
     user: User = Relationship(back_populates="requests")
     files: List["File"] = Relationship(back_populates="request")
+    selected_template: Optional["Template"] = Relationship()
 
 
 class File(SQLModel, table=True):

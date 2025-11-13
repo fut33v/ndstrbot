@@ -7,48 +7,20 @@ Telegram bot for registering cars with Yandex GO. Supports both passenger and ca
 - Registration for passenger and cargo vehicles
 - Photo upload (4 car photos, 2 STS photos for cargo)
 - Admin panel with request management
-- SQLite database storage
+- Database storage (SQLite or PostgreSQL)
+- Web dashboard for viewing database content
+- Modern React frontend application
 - Docker support
 
 ## Requirements
 
 - Python 3.11+
 - Telegram Bot Token
-- Poetry (for dependency management)
+- Docker and Docker Compose (for containerized deployment)
 
 ## Installation
 
-### Local Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd ndstrbot
-```
-
-2. Install dependencies using Poetry:
-```bash
-poetry install
-```
-
-3. Create a `.env` file based on `.env.example`:
-```bash
-cp .env.example .env
-```
-
-4. Fill in your bot token and admin IDs in the `.env` file.
-
-5. Initialize the database:
-```bash
-poetry run python create_db.py
-```
-
-6. Run the bot:
-```bash
-poetry run python run.py
-```
-
-### Using Docker
+### Using Docker (Recommended)
 
 1. Create a `.env` file based on `.env.example`:
 ```bash
@@ -59,17 +31,67 @@ cp .env.example .env
 
 3. Build and run with Docker Compose:
 ```bash
-docker-compose up --build
+# Run both bot and web app
+docker compose up --build
+
+# Run only the web app and frontend
+docker compose -f docker-compose.web.yml up --build
 ```
+
+Note: The application now supports both SQLite (default) and PostgreSQL databases. 
+By default, it uses SQLite for simplicity. To use PostgreSQL, uncomment the PostgreSQL 
+configuration in your `.env` file.
 
 ## Environment Variables
 
 - `BOT_TOKEN`: Your Telegram bot token
 - `ADMIN_IDS`: Comma-separated list of admin Telegram IDs
-- `DATABASE_URL`: Database connection string (default: sqlite+aiosqlite:///./storage/app.db)
+- `DATABASE_URL`: Database connection string
+  - SQLite (default): `sqlite+aiosqlite:///./storage/app.db`
+  - PostgreSQL: `postgresql+asyncpg://user:password@host:port/database`
+- `DATABASE_TYPE`: Database type (`sqlite` or `postgresql`)
 - `BASE_DIR`: Base directory of the project
 - `UPLOAD_DIR`: Directory for uploaded files
 - `FAKE_FILES`: Set to "true" to skip actual file downloads (for testing)
+
+## Database Support
+
+This application supports both SQLite and PostgreSQL databases:
+
+### SQLite (Default)
+- Simple setup, good for development and small deployments
+- Data stored in a local file (`storage/app.db`)
+
+### PostgreSQL
+- More robust, suitable for production environments
+- Better performance and scalability
+- Requires a PostgreSQL server
+
+To switch to PostgreSQL:
+1. Update your `.env` file with PostgreSQL configuration
+2. Make sure the PostgreSQL server is running
+3. Run the database initialization script
+
+## Web Application
+
+The project includes a web application for viewing database content:
+
+- Dashboard with statistics: http://localhost:8000/dashboard
+- JSON API endpoints for all database tables
+- HTML views for easy browsing of data
+
+For more information about the web application, see [app/webapp/README.md](app/webapp/README.md).
+
+## Frontend Application
+
+The project also includes a modern React frontend application:
+
+- Built with React and Vite
+- Responsive design
+- API integration with the backend
+- Available at http://localhost:3000 when running via Docker
+
+For more information about the frontend application, see [frontend/README.md](frontend/README.md).
 
 ## Bot Commands
 
@@ -93,10 +115,18 @@ docker-compose up --build
 │  ├─ keyboards/ (reply.py, inline.py)
 │  ├─ states/ (light.py, cargo.py)
 │  ├─ services/ (uploader.py, validators.py, notifier.py)
-│  └─ utils/ (formatters.py, middleware.py)
+│  ├─ utils/ (formatters.py, middleware.py)
+│  └─ webapp/ (main.py, run.py, templates.py)
 ├─ domain/
 │  ├─ models.py
 │  └─ schemas.py
+├─ frontend/ (React application)
+│  ├─ src/
+│  │  ├─ components/
+│  │  ├─ pages/
+│  │  └─ ...
+│  ├─ package.json
+│  └─ ...
 ├─ infra/
 │  ├─ db.py
 │  ├─ config.py

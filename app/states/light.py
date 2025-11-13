@@ -16,4 +16,5 @@ class LightVehicleStates(StatesGroup):
     entering_year = State()
     choosing_license = State()
     choosing_license_option = State()
+    choosing_no_license_option = State()
     sending_photos_no_brand = State()  # Sending 4 auto photos

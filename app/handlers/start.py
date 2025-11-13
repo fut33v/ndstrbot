@@ -5,7 +5,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from app.keyboards.reply import get_main_menu
+from app.keyboards.inline import get_main_menu
 from domain.models import User
 
 
@@ -20,9 +20,9 @@ async def start_handler(message: Message, user: User):
     logger.info(f"Start handler called for user {user.tg_id}")
     try:
         await message.answer(
-            f"Привет, {user.first_name}!\n"
-            "Я бот для регистрации автомобилей в Яндекс GO.\n"
-            "Выберите тип транспорта:",
+            f"👋 Привет, {user.first_name}!\n"
+            "🤖 Я бот для регистрации автомобилей в Яндекс GO.\n"
+            "🛣 Выберите тип транспорта:",
             reply_markup=get_main_menu()
         )
         logger.debug("Start handler completed successfully")

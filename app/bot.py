@@ -31,9 +31,10 @@ async def main():
         logger.debug("Creating dispatcher")
         dp = Dispatcher(storage=storage)
         
-        # Register middleware
+        # Register middleware for both messages and callback queries
         logger.debug("Registering UserMiddleware")
         dp.message.middleware(UserMiddleware())
+        dp.callback_query.middleware(UserMiddleware())
         
         # Register handlers
         logger.debug("Registering handlers")
