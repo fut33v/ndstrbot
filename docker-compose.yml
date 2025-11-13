@@ -1,4 +1,13 @@
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ndstrbot
+      POSTGRES_USER: ndstrbot_user
+      POSTGRES_PASSWORD: ndstrbot_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   bot:
     build: .
     env_file:
@@ -6,4 +15,33 @@ services:
     volumes:
       - ./storage:/app/storage
       - ./logs:/app/logs
+    depends_on:
+      - db
     restart: unless-stopped
+    command: python run.py bot
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/app/storage
+      - ./logs:/app/logs
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

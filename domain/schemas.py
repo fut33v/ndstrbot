@@ -41,11 +41,13 @@ class RequestResponse(BaseModel):
     """Schema for request response."""
     id: int
     user_id: int
+    username: Optional[str] = None
     category: str
     status: str
     has_brand: Optional[bool] = None
     year: Optional[int] = None
     has_license: Optional[bool] = None
+    selected_template_id: Optional[int] = None
     created_at: datetime
     submitted_at: Optional[datetime] = None
 

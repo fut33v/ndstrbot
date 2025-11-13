@@ -1,0 +1,111 @@
+.data-table-container {
+  margin-bottom: 2rem;
+}
+
+.data-table-container h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.data-table td {
+  color: #333;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.data-table tr:hover {
+  background-color: #e9ecef;
+}
+
+.data-table tr.clickable-row {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.data-table tr.clickable-row:hover {
+  background-color: #d3d9df;
+  transform: scale(1.005);
+}
+
+@media (max-width: 768px) {
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  .data-table-container h2 {
+    color: #ffffff;
+  }
+  
+  .data-table {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .data-table th,
+  .data-table td {
+    border-bottom: 1px solid #444;
+  }
+  
+  .data-table th {
+    background-color: #3d3d3d;
+    color: #ffffff;
+  }
+  
+  .data-table td {
+    color: #ffffff;
+  }
+  
+  .data-table tr:nth-child(even) {
+    background-color: #333333;
+  }
+  
+  .data-table tr:hover {
+    background-color: #444444;
+  }
+  
+  .data-table tr.clickable-row:hover {
+    background-color: #555555;
+  }
+}
